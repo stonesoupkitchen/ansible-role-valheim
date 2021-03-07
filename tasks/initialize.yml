@@ -24,7 +24,7 @@
 
 - name: Copy LinuxGSM to Valheim installation directory
   copy:
-    src: '{{ linuxgsm_install_path }}/bin/linuxgsm.sh'
+    src: '{{ linuxgsm_install_path }}'
     dest: '{{ valheim_install_path }}'
     owner: '{{ valheim_user }}'
     group: '{{ valheim_group }}'
