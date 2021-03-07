@@ -9,7 +9,7 @@
     name: '{{ valheim_user }}'
     comment: Valheim user
     group: '{{ valheim_group }}'
-    home: '{{ valheim_install_path }}'
+    home: '{{ valheim_install_dir }}'
     create_home: no
     shell: /bin/bash
     expires: -1
@@ -17,7 +17,7 @@
 - name: Create Valheim installation directory
   file:
     state: directory
-    path: '{{ valheim_install_path }}'
+    path: '{{ valheim_install_dir }}'
     owner: '{{ valheim_user }}'
     group: '{{ valheim_group }}'
     mode: '0750'
@@ -25,7 +25,7 @@
 - name: Copy LinuxGSM to Valheim installation directory
   copy:
     src: '{{ linuxgsm_install_path }}'
-    dest: '{{ valheim_install_path }}'
+    dest: '{{ valheim_install_dir }}/linuxgsm.sh'
     owner: '{{ valheim_user }}'
     group: '{{ valheim_group }}'
     mode: '0750'
@@ -36,5 +36,5 @@
 - name: Initialize vhserver script
   shell:
     cmd: 'sudo -u {{ valheim_user }} bash linuxgsm.sh vhserver'
-    chdir: '{{ valheim_install_path }}'
+    chdir: '{{ valheim_install_dir }}'
     creates: 'vhserver'

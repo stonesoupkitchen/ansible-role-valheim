@@ -8,5 +8,5 @@
 - name: Install Valheim
   shell:
     cmd: 'sudo -u {{ valheim_user }} bash vhserver auto-install'
-    chdir: '{{ valheim_install_path }}'
+    chdir: '{{ valheim_install_dir }}'
     creates: 'serverfiles'

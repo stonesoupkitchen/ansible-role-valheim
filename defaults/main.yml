@@ -1,6 +1,6 @@
 ---
-# Valheim installation path.
-valheim_install_path: '/opt/valheim'
+# Valheim installation directory.
+valheim_install_dir: '/opt/valheim'
 
 # Valheim server settings.
 #
