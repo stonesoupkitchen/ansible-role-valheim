@@ -1,0 +1,17 @@
+---
+# Valheim installation path.
+valheim_install_path: '/opt/valheim'
+
+# Valheim server settings.
+#
+# valheim_server_name: The name of the server, printed to the server browser.
+# valheim_server_password: Password for joining the server.
+# valheim_server_port: The port on which the server is listening.
+# valheim_server_gameworld: Name of the world on-disk that the server will load.
+# valheim_server_public: 1 for Internet, 0 for LAN.
+#
+valheim_server_name: "Valheim Server"
+valheim_server_password: ""
+valheim_server_port: 2456
+valheim_server_gameworld: "dedicated"
+valheim_server_public: 1

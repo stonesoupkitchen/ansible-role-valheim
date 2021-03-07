@@ -1,0 +1,40 @@
+---
+- name: Create Valheim group
+  group:
+    name: '{{ valheim_group }}'
+    state: present
+
+- name: Create Valheim user
+  user:
+    name: '{{ valheim_user }}'
+    comment: Valheim user
+    group: '{{ valheim_group }}'
+    home: '{{ valheim_install_path }}'
+    create_home: no
+    shell: /bin/bash
+    expires: -1
+
+- name: Create Valheim installation directory
+  file:
+    state: directory
+    path: '{{ valheim_install_path }}'
+    owner: '{{ valheim_user }}'
+    group: '{{ valheim_group }}'
+    mode: '0750'
+
+- name: Copy LinuxGSM to Valheim installation directory
+  copy:
+    src: '{{ linuxgsm_install_path }}/bin/linuxgsm.sh'
+    dest: '{{ valheim_install_path }}'
+    owner: '{{ valheim_user }}'
+    group: '{{ valheim_group }}'
+    mode: '0750'
+    remote_src: yes
+
+# This is a bit ugly, but Ansible does not do well with becoming unprivileged
+# users. So, instead, we use sudo to execute a command as our target user.
+- name: Initialize vhserver script
+  shell:
+    cmd: 'sudo -u {{ valheim_user }} bash linuxgsm.sh vhserver'
+    chdir: '{{ valheim_install_path }}'
+    creates: 'vhserver'

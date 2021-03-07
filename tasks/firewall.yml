@@ -1,0 +1,12 @@
+---
+- name: Open Valheim server port
+  ufw:
+    rule: allow
+    port: '{{ valheim_server_port }}'
+    proto: udp
+
+- name: Open Valheim Steam server port
+  ufw:
+    rule: allow
+    port: '{{ valheim_server_port + 1 }}'
+    proto: udp

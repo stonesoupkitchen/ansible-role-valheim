@@ -1,0 +1,12 @@
+# Download and install Valheim.
+---
+# This is a bit ugly, but Ansible does not do well with becoming unprivileged
+# users. So, instead, we use sudo to execute a command as our target user.
+#
+# Also, this task can take a while, depending on the network speed of the
+# target system. This step is installing the entire game from Steam's servers.
+- name: Install Valheim
+  shell:
+    cmd: 'sudo -u {{ valheim_user }} bash vhserver auto-install'
+    chdir: '{{ valheim_install_path }}'
+    creates: 'serverfiles'

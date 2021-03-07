@@ -1,0 +1,11 @@
+# Configure Valheim server settings.
+---
+- name: Configure Valheim server settings
+  template:
+    src: vhserver.cfg.j2
+    dest: '{{ valheim_install_path }}/lgsm/config-lgsm/vhserver/vhserver.cfg'
+    owner: '{{ valheim_user }}'
+    group: '{{ valheim_group }}'
+    mode: '0640'
+  notify:
+    - Restart Valheim server

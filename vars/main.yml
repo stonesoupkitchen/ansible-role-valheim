@@ -1,0 +1,4 @@
+---
+# Valheim user and group that will run the dedicated server.
+valheim_user: "vhserver"
+valheim_group: "vhserver"
