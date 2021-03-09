@@ -1,0 +1,30 @@
+name: CI
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: 'stonesoupkitchen.valheim'
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          path: 'stonesoupkitchen.valheim'
+
+      - name: Yamllint
+        run: |
+          docker run --rm -i -v $(pwd):/ws -w /ws docker.io/stonesoupkitchen/yamllint:latest .
+
+      - name: Ansible Lint
+        run: |
+          mkdir -p .cache/roles
+          ln -s ../.. .cache/roles/stonesoupkitchen.valheim
+          docker run --rm -i -v $(pwd):/ws -w /ws docker.io/stonesoupkitchen/ansible-lint:latest

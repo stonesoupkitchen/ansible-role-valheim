@@ -1,0 +1,27 @@
+---
+# See: https://github.com/marketplace/actions/publish-ansible-role-to-galaxy
+name: Release
+
+on:
+  push:
+    tags:
+      - '*'
+
+defaults:
+  run:
+    working-directory: 'stonesoupkitchen.valheim'
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          path: 'stonesoupkitchen.valheim'
+
+      - name: Galaxy import
+        uses: robertdebock/galaxy-action@1.1.0
+        with:
+          galaxy_api_key: ${{ secrets.GALAXY_API_KEY }}
