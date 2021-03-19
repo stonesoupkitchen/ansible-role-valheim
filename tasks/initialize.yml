@@ -34,7 +34,7 @@
 # This is a bit ugly, but Ansible does not do well with becoming unprivileged
 # users. So, instead, we use sudo to execute a command as our target user.
 - name: Initialize vhserver script
-  shell:
-    cmd: 'sudo -u {{ valheim_user }} bash linuxgsm.sh vhserver'
+  command: 'sudo -u {{ valheim_user }} bash linuxgsm.sh vhserver'
+  args:
     chdir: '{{ valheim_install_dir }}'
     creates: 'vhserver'

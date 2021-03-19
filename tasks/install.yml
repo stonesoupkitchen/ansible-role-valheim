@@ -6,7 +6,7 @@
 # Also, this task can take a while, depending on the network speed of the
 # target system. This step is installing the entire game from Steam's servers.
 - name: Install Valheim
-  shell:
-    cmd: 'sudo -u {{ valheim_user }} bash vhserver auto-install'
+  command: 'sudo -u {{ valheim_user }} bash vhserver auto-install'
+  args:
     chdir: '{{ valheim_install_dir }}'
     creates: 'serverfiles'

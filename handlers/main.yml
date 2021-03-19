@@ -1,5 +1,5 @@
 ---
 - name: Restart Valheim server
-  shell:
-    cmd: 'sudo -u {{ valheim_user }} bash vhserver restart'
+  command: 'sudo -u {{ valheim_user }} bash vhserver restart'
+  args:
     chdir: '{{ valheim_install_dir }}'
