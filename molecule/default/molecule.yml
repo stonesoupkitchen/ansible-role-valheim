@@ -5,7 +5,7 @@ driver:
   name: docker
 platforms:
   - name: instance
-    image: docker.io/pycontribs/debian:latest
+    image: docker.io/geerlingguy/docker-debian10-ansible:latest
     pre_build_image: true
 provisioner:
   name: ansible
