@@ -10,8 +10,7 @@ defaults:
     working-directory: 'stonesoupkitchen.valheim'
 
 jobs:
-  lint:
-    name: Lint
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -19,12 +18,22 @@ jobs:
         with:
           path: 'stonesoupkitchen.valheim'
 
-      - name: Yamllint
-        run: |
-          docker run --rm -i -v $(pwd):/ws -w /ws docker.io/stonesoupkitchen/yamllint:latest .
+      - name: Set up Python 3
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
 
-      - name: Ansible Lint
+      - name: Install dependencies
         run: |
-          mkdir -p .cache/roles
-          ln -s ../.. .cache/roles/stonesoupkitchen.valheim
-          docker run --rm -i -v $(pwd):/ws -w /ws docker.io/stonesoupkitchen/ansible-lint:latest
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Lint with ansible-lint
+        run: |
+          ansible-lint
+
+      - name: Run Molecule tests
+        run: molecule test
+        env:
+          ANSIBLE_FORCE_COLOR: '1'
+          PY_COLORS: '1'
